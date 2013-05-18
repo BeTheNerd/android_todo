@@ -25,8 +25,8 @@ public final class R {
     }
     public static final class id {
         public static final int action_settings=0x7f080003;
-        public static final int add=0x7f080001;
-        public static final int delete=0x7f080002;
+        public static final int add=0x7f080002;
+        public static final int editText=0x7f080001;
         public static final int group=0x7f080000;
     }
     public static final class layout {
@@ -37,9 +37,10 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
-        public static final int add_item_text=0x7f050002;
+        public static final int add_item_button=0x7f050002;
         public static final int app_name=0x7f050000;
-        public static final int delete_item_text=0x7f050003;
+        public static final int delete_item_button=0x7f050003;
+        public static final int new_item_text=0x7f050004;
     }
     public static final class style {
         /** 
