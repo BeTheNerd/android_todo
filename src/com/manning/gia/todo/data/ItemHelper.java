@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Item Helper for the Repository
+ * @author jkeam
+ *
+ */
 public class ItemHelper extends SQLiteOpenHelper {
 	public static final String TABLE_NAME = "ITEMS";
 	public static final String ID_COLUMN = "_ID";

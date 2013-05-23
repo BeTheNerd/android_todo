@@ -8,25 +8,24 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
-import com.manning.gia.todo.data.ItemDAO;
+import com.manning.gia.todo.data.ItemRepository;
 import com.manning.gia.todo.model.Item;
 import com.manning.todo.R;
 
 public class TodoActivity extends ListActivity {
-	private ItemDAO datasource;
+	private ItemRepository datasource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_todo);
 
-		datasource = new ItemDAO(this);
+		datasource = new ItemRepository(this);
 		datasource.open();
 
 		List<Item> values = datasource.retrieve();
 		ArrayAdapter<Item> adapter = new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, values);
 		setListAdapter(adapter);
-
 	}
 
 	public void onClick(View view) {

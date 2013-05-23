@@ -11,12 +11,17 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.manning.gia.todo.model.Item;
 
-public class ItemDAO {
+/**
+ * Item Repository
+ * @author jkeam
+ *
+ */
+public class ItemRepository {
 	  private SQLiteDatabase database;
 	  private ItemHelper helper;
 	  private static final String[] allColumns = { ItemHelper.ID_COLUMN, ItemHelper.NAME_COLUMN};
 
-	  public ItemDAO(Context context) {
+	  public ItemRepository(Context context) {
 	    helper = new ItemHelper(context);
 	  }
 
