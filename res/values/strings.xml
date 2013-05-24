@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Todo</string>
+    <string name="app_name">Android Todo</string>
     <string name="action_settings">Settings</string>
     <string name="add_item_button">Add</string>
-    <string name="delete_item_button">Delete</string>
+    <string name="delete_item_text">Delete</string>
     <string name="new_item_text">New Item</string>
 
 </resources>

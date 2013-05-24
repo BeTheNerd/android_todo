@@ -12,14 +12,15 @@ import android.util.Log;
  *
  */
 public class ItemHelper extends SQLiteOpenHelper {
-	public static final String TABLE_NAME = "ITEMS";
-	public static final String ID_COLUMN = "_ID";
-	public static final String NAME_COLUMN = "NAME";
+	public static final String TABLE_NAME = "items";
+	public static final String ID_COLUMN = "_id";
+	public static final String NAME_COLUMN = "name";
+	public static final String[] allColumns = { ItemHelper.ID_COLUMN, ItemHelper.NAME_COLUMN};
 
-	private static final String DATABASE_NAME = "MANNING.GIA";
+	private static final String DATABASE_NAME = "manning.gia";
 	private static final int DATABASE_VERSION = 1;
-	private static final String CREATE_TABLE = "CREATE TABLE ITEMS(_ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL);";
-	private static final String DROP_TABLE = "DROP TABLE IF EXISTS ITEMS";
+	private static final String CREATE_TABLE = "create table items(_id integer primary key autoincrement, name text not null);";
+	private static final String DROP_TABLE = "drop table if exists items";
 	
 	public ItemHelper(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
