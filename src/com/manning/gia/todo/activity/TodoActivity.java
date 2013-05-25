@@ -85,7 +85,7 @@ public class TodoActivity extends ListActivity implements LoaderManager.LoaderCa
 	@Override
 	public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenuInfo contextMenuInfo) {
 		super.onCreateContextMenu(contextMenu, view, contextMenuInfo);
-		contextMenu.add(0, DELETE_ID, 0, R.string.delete_item_text);
+		contextMenu.add(Menu.NONE, DELETE_ID, Menu.NONE, R.string.delete_item_text);
 	}
 
 	@Override
