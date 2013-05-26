@@ -20,36 +20,37 @@ import com.manning.gia.todo.model.Item;
  *
  */
 public class TodoDetailActivity extends Activity {
+	private static final String MISSING_TEXT_MESSAGE = "Please enter text for the todo item";
 	private Uri uri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.todo_edit);
-		Uri uri = getUri(savedInstanceState);
+		uri = getUri(savedInstanceState);
 		Item item = getItem(uri);
 
 		Button confirmButton = (Button)findViewById(R.id.todoEditConfirmButton);
 		EditText editText = (EditText)findViewById(R.id.editText);
 		editText.setText(item.getName());
 
-		attachOnClickHandler(confirmButton, editText.getText().toString());
+		attachOnClickHandler(confirmButton, editText);
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		saveState();
+		saveState(uri);
 		outState.putParcelable(ItemContentProvider.CONTENT_ITEM_TYPE, uri);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		saveState();
+		saveState(uri);
 	}
 	
-	protected void saveState() {
+	protected void saveState(Uri uri) {
 		EditText editText = (EditText)findViewById(R.id.editText);
 		String text = editText.getText().toString();
 		if (uri == null) {
@@ -60,10 +61,10 @@ public class TodoDetailActivity extends Activity {
 		}
 	}
 
-	protected void attachOnClickHandler(Button button, final String text) {
+	protected void attachOnClickHandler(Button button, final EditText editText) {
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				if (TextUtils.isEmpty(text)) {
+				if (TextUtils.isEmpty(editText.getText().toString())) {
 					showValidation();
 				} else {
 					setResult(RESULT_OK);
@@ -75,7 +76,7 @@ public class TodoDetailActivity extends Activity {
 	}
 
 	private void showValidation() {
-		Toast.makeText(TodoDetailActivity.this, "Please enter text for the todo item", Toast.LENGTH_LONG).show();
+		Toast.makeText(TodoDetailActivity.this, MISSING_TEXT_MESSAGE, Toast.LENGTH_LONG).show();
 	}
 
 	protected Item getItem(Uri uri) {
