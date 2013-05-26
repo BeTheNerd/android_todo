@@ -6,5 +6,8 @@
     <string name="add_item_button">Add</string>
     <string name="delete_item_text">Delete</string>
     <string name="new_item_text">New Item</string>
+    <string name="input_item_text">Enter todo item</string>
+    <string name="todo_edit_confirm">Confirm</string>
+    
 
 </resources>

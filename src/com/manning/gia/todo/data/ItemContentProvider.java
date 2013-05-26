@@ -10,16 +10,21 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
+/**
+ * Provides lower level access to items.
+ * @author jkeam
+ *
+ */
 public class ItemContentProvider extends ContentProvider {
-	private ItemHelper database;
+	private ItemContentHelper database;
 
 	private static final int ITEMS = 10;
 	private static final int ITEM_ID = 20;
 
 	private static final String AUTHORITY = "com.manning.gia.todo.data.contentprovider";
 	private static final String BASE_PATH = "items";
+	
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
-
 	public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/todos";
 	public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/todo";
 
@@ -36,14 +41,14 @@ public class ItemContentProvider extends ContentProvider {
 		int rowsDeleted = 0;
 		switch (uriType) {
 		case ITEMS:
-			rowsDeleted = writeableDatabase.delete(ItemHelper.TABLE_NAME, selection, selectionArgs);
+			rowsDeleted = writeableDatabase.delete(ItemContentHelper.TABLE_NAME, selection, selectionArgs);
 			break;
 		case ITEM_ID:
 			String id = uri.getLastPathSegment();
 			if (TextUtils.isEmpty(selection)) {
-				rowsDeleted = writeableDatabase.delete(ItemHelper.TABLE_NAME, ItemHelper.ID_COLUMN + "=" + id, null);
+				rowsDeleted = writeableDatabase.delete(ItemContentHelper.TABLE_NAME, ItemContentHelper.ID_COLUMN + "=" + id, null);
 			} else {
-				rowsDeleted = writeableDatabase.delete(ItemHelper.TABLE_NAME, ItemHelper.ID_COLUMN + "=" + id + " and " + selection, selectionArgs);
+				rowsDeleted = writeableDatabase.delete(ItemContentHelper.TABLE_NAME, ItemContentHelper.ID_COLUMN + "=" + id + " and " + selection, selectionArgs);
 			}
 			break;
 		default:
@@ -64,7 +69,7 @@ public class ItemContentProvider extends ContentProvider {
 		long id = 0;
 		switch (uriMatcher.match(uri)) {
 		case ITEMS:
-			id = sqlDB.insert(ItemHelper.TABLE_NAME, null, contentValues);
+			id = sqlDB.insert(ItemContentHelper.TABLE_NAME, null, contentValues);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -75,21 +80,21 @@ public class ItemContentProvider extends ContentProvider {
 
 	@Override
 	public boolean onCreate() {
-		database = new ItemHelper(getContext());
+		database = new ItemContentHelper(getContext());
 		return false;
 	}
 
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-		queryBuilder.setTables(ItemHelper.TABLE_NAME);
+		queryBuilder.setTables(ItemContentHelper.TABLE_NAME);
 
 		int uriType = uriMatcher.match(uri);
 		switch (uriType) {
 		case ITEMS:
 			break;
 		case ITEM_ID:
-			queryBuilder.appendWhere(ItemHelper.ID_COLUMN + "=" + uri.getLastPathSegment());
+			queryBuilder.appendWhere(ItemContentHelper.ID_COLUMN + "=" + uri.getLastPathSegment());
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -108,14 +113,14 @@ public class ItemContentProvider extends ContentProvider {
 		int rowsUpdated = 0;
 		switch (uriMatcher.match(uri)) {
 		case ITEMS:
-			rowsUpdated = writeableDatabase.update(ItemHelper.TABLE_NAME, contentValues, selection, selectionArgs);
+			rowsUpdated = writeableDatabase.update(ItemContentHelper.TABLE_NAME, contentValues, selection, selectionArgs);
 			break;
 		case ITEM_ID:
 			String id = uri.getLastPathSegment();
 			if (TextUtils.isEmpty(selection)) {
-				rowsUpdated = writeableDatabase.update(ItemHelper.TABLE_NAME, contentValues, ItemHelper.ID_COLUMN + "=" + id,  null);
+				rowsUpdated = writeableDatabase.update(ItemContentHelper.TABLE_NAME, contentValues, ItemContentHelper.ID_COLUMN + "=" + id,  null);
 			} else {
-				rowsUpdated = writeableDatabase.update(ItemHelper.TABLE_NAME, contentValues, ItemHelper.ID_COLUMN + "=" + id + " and " + selection, selectionArgs);
+				rowsUpdated = writeableDatabase.update(ItemContentHelper.TABLE_NAME, contentValues, ItemContentHelper.ID_COLUMN + "=" + id + " and " + selection, selectionArgs);
 			}
 			break;
 		default:
