@@ -3,14 +3,12 @@ package com.manning.gia.todo.activity;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.manning.gia.todo.R;
-import com.manning.gia.todo.data.ItemContentProvider;
 import com.manning.gia.todo.data.ItemRepository;
 import com.manning.gia.todo.model.Item;
 
@@ -20,7 +18,6 @@ import com.manning.gia.todo.model.Item;
  *
  */
 public class TodoDetailActivity extends Activity {
-	private static final String MISSING_TEXT_MESSAGE = "Please enter text for the todo item";
 	private Uri uri;
 
 	@Override
@@ -41,7 +38,7 @@ public class TodoDetailActivity extends Activity {
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		saveState(uri);
-		outState.putParcelable(ItemContentProvider.CONTENT_ITEM_TYPE, uri);
+		outState.putParcelable(ItemRepository.getContentItemType(), uri);
 	}
 
 	@Override
@@ -52,20 +49,22 @@ public class TodoDetailActivity extends Activity {
 	
 	protected void saveState(Uri uri) {
 		EditText editText = (EditText)findViewById(R.id.editText);
-		String text = editText.getText().toString();
+		Item item = new Item(editText.getText().toString());
 		if (uri == null) {
-			ItemRepository.save(getContentResolver(), text);
+			ItemRepository.save(getContentResolver(), item);
 		}
 		else {
-			ItemRepository.update(getContentResolver(), uri, text);
+			ItemRepository.update(getContentResolver(), uri, item);
 		}
 	}
 
 	protected void attachOnClickHandler(Button button, final EditText editText) {
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				if (TextUtils.isEmpty(editText.getText().toString())) {
-					showValidation();
+				Item item = new Item(editText.getText().toString());
+				String errorMessage = item.validate();
+				if (errorMessage != null) {
+					showValidation(errorMessage);
 				} else {
 					setResult(RESULT_OK);
 					finish();
@@ -75,8 +74,8 @@ public class TodoDetailActivity extends Activity {
 		});
 	}
 
-	private void showValidation() {
-		Toast.makeText(TodoDetailActivity.this, MISSING_TEXT_MESSAGE, Toast.LENGTH_LONG).show();
+	private void showValidation(String errorMessage) {
+		Toast.makeText(TodoDetailActivity.this, errorMessage, Toast.LENGTH_LONG).show();
 	}
 
 	protected Item getItem(Uri uri) {
@@ -88,10 +87,10 @@ public class TodoDetailActivity extends Activity {
 
 		Bundle bundleFromIntent = getIntent().getExtras();
 		if (bundleFromIntent != null) {
-			uri = bundleFromIntent.getParcelable(ItemContentProvider.CONTENT_ITEM_TYPE);
+			uri = bundleFromIntent.getParcelable(ItemRepository.getContentItemType());
 		}
 		else if (savedInstanceState != null) {
-			uri = savedInstanceState.getParcelable(ItemContentProvider.CONTENT_ITEM_TYPE);
+			uri = savedInstanceState.getParcelable(ItemRepository.getContentItemType());
 		}
 
 		return uri;

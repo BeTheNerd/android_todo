@@ -29,21 +29,29 @@ public class ItemRepository {
 	public static String getContentItemType() {
 		return ItemContentProvider.CONTENT_ITEM_TYPE;
 	}
+	
+	public static String[] getAllColumns() {
+		return ItemContentHelper.allColumns;
+	}
+	
+	public static String getNameColumn() {
+		return ItemContentHelper.NAME_COLUMN;
+	}
 
 	//Data manipulation methods
 	public static void delete(ContentResolver contentResolver, long id) {
 		contentResolver.delete(ItemRepository.getUri(id), null, null);	
 	}
 	
-	public static void save(ContentResolver contentResolver, String text) {
+	public static void save(ContentResolver contentResolver, Item item) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(ItemContentHelper.NAME_COLUMN, text);
+		contentValues.put(ItemContentHelper.NAME_COLUMN, item.getName());
 		contentResolver.insert(ItemContentProvider.CONTENT_URI, contentValues);
 	}
 	
-	public static void update(ContentResolver contentResolver, Uri uri, String text) {
+	public static void update(ContentResolver contentResolver, Uri uri, Item item) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(ItemContentHelper.NAME_COLUMN, text);
+		contentValues.put(ItemContentHelper.NAME_COLUMN, item.getName());
 		contentResolver.update(uri, contentValues, null, null);
 	}
 	

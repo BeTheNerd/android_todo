@@ -18,9 +18,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.manning.gia.todo.R;
-import com.manning.gia.todo.data.ItemContentHelper;
-import com.manning.gia.todo.data.ItemContentProvider;
 import com.manning.gia.todo.data.ItemRepository;
+import com.manning.gia.todo.model.Item;
 
 /**
  * Main Todo Activity.
@@ -46,7 +45,7 @@ public class TodoActivity extends ListActivity implements LoaderManager.LoaderCa
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		return new CursorLoader(this, ItemContentProvider.CONTENT_URI, ItemContentHelper.allColumns, null, null, null);
+		return new CursorLoader(this, ItemRepository.getContentUri(), ItemRepository.getAllColumns(), null, null, null);
 	}
 
 	@Override
@@ -83,7 +82,7 @@ public class TodoActivity extends ListActivity implements LoaderManager.LoaderCa
 	protected void onListItemClick(ListView listView, View view, int position, long id) {
 		super.onListItemClick(listView, view, position, id);
 		Intent i = new Intent(this, TodoDetailActivity.class);
-		i.putExtra(ItemContentProvider.CONTENT_ITEM_TYPE, ItemRepository.getUri(id));
+		i.putExtra(ItemRepository.getContentItemType(), ItemRepository.getUri(id));
 		startActivity(i);
 	}
 
@@ -93,9 +92,8 @@ public class TodoActivity extends ListActivity implements LoaderManager.LoaderCa
 		switch (view.getId()) {
 		case R.id.add:
 			EditText editText = (EditText) findViewById(R.id.newText);
-			String text = editText.getText().toString();
-
-			ItemRepository.save(getContentResolver(), text);
+			Item item = new Item(editText.getText().toString());
+			ItemRepository.save(getContentResolver(), item);
 			editText.setText("");
 			break;
 		}
@@ -106,7 +104,7 @@ public class TodoActivity extends ListActivity implements LoaderManager.LoaderCa
 	//Helper Methods
 	protected void setupAdapter() {
 		getLoaderManager().initLoader(0, null, this);
-		adapter = new SimpleCursorAdapter(this, R.layout.todo_row, null, new String[]{ItemContentHelper.NAME_COLUMN}, new int[]{R.id.itemText}, 0);
+		adapter = new SimpleCursorAdapter(this, R.layout.todo_row, null, new String[]{ItemRepository.getNameColumn()}, new int[]{R.id.itemText}, 0);
 		setListAdapter(adapter);
 	}
 }
