@@ -18,7 +18,9 @@
         android:layout_weight="1"
         android:gravity="top"
         android:hint="@string/input_item_text"
-        android:imeOptions="actionDone" >
+        android:imeOptions="actionDone"
+        android:inputType="text|textMultiLine" 
+    >
     </EditText>
     
     <Button

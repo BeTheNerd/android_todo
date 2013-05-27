@@ -42,7 +42,7 @@ public class Item {
 	 */
 	public String validate() {
 		String errorMessage = null;
-		if (TextUtils.isEmpty(name)) {
+		if (TextUtils.isEmpty(name) || TextUtils.isEmpty(name.trim())) {
 			errorMessage = MISSING_TEXT_MESSAGE;
 		}
 		return errorMessage;

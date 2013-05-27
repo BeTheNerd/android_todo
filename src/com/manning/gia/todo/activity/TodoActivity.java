@@ -16,6 +16,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.manning.gia.todo.R;
 import com.manning.gia.todo.model.Item;
@@ -93,8 +94,13 @@ public class TodoActivity extends ListActivity implements LoaderManager.LoaderCa
 		case R.id.add:
 			EditText editText = (EditText) findViewById(R.id.newText);
 			Item item = new Item(editText.getText().toString());
-			ItemRepository.save(getContentResolver(), item);
-			editText.setText("");
+			String errorMessage = item.validate();
+			if (errorMessage != null) {
+				showValidation(errorMessage);
+			} else {
+				ItemRepository.save(getContentResolver(), item);
+				editText.setText("");
+			}
 			break;
 		}
 
@@ -106,5 +112,9 @@ public class TodoActivity extends ListActivity implements LoaderManager.LoaderCa
 		getLoaderManager().initLoader(0, null, this);
 		adapter = new SimpleCursorAdapter(this, R.layout.todo_row, null, new String[]{ItemRepository.getNameColumn()}, new int[]{R.id.itemText}, 0);
 		setListAdapter(adapter);
+	}
+	
+	private void showValidation(String errorMessage) {
+		Toast.makeText(TodoActivity.this, errorMessage, Toast.LENGTH_LONG).show();
 	}
 }
