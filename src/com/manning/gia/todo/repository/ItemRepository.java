@@ -1,4 +1,4 @@
-package com.manning.gia.todo.data;
+package com.manning.gia.todo.repository;
 
 import com.manning.gia.todo.model.Item;
 

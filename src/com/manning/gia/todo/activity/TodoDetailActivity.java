@@ -9,8 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.manning.gia.todo.R;
-import com.manning.gia.todo.data.ItemRepository;
 import com.manning.gia.todo.model.Item;
+import com.manning.gia.todo.repository.ItemRepository;
 
 /**
  * Detail todo activity view

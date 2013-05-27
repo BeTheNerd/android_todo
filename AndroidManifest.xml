@@ -27,8 +27,8 @@
         </activity>
 
         <provider
-            android:name=".data.ItemContentProvider"
-            android:authorities="com.manning.gia.todo.data.contentprovider" />
+            android:name=".repository.ItemContentProvider"
+            android:authorities="com.manning.gia.todo.repository.contentprovider" />
     </application>
 
 </manifest>

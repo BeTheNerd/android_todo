@@ -1,4 +1,4 @@
-package com.manning.gia.todo.data;
+package com.manning.gia.todo.repository;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -21,7 +21,7 @@ public class ItemContentProvider extends ContentProvider {
 	private static final int ITEMS = 10;
 	private static final int ITEM_ID = 20;
 
-	private static final String AUTHORITY = "com.manning.gia.todo.data.contentprovider";
+	private static final String AUTHORITY = "com.manning.gia.todo.repository.contentprovider";
 	private static final String BASE_PATH = "items";
 	
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);

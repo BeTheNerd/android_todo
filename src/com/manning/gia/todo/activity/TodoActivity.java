@@ -18,8 +18,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.manning.gia.todo.R;
-import com.manning.gia.todo.data.ItemRepository;
 import com.manning.gia.todo.model.Item;
+import com.manning.gia.todo.repository.ItemRepository;
 
 /**
  * Main Todo Activity.
