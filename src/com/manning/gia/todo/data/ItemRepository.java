@@ -31,11 +31,11 @@ public class ItemRepository {
 	}
 	
 	public static String[] getAllColumns() {
-		return ItemContentHelper.allColumns;
+		return ItemContentProviderHelper.allColumns;
 	}
 	
 	public static String getNameColumn() {
-		return ItemContentHelper.NAME_COLUMN;
+		return ItemContentProviderHelper.NAME_COLUMN;
 	}
 
 	//Data manipulation methods
@@ -45,23 +45,23 @@ public class ItemRepository {
 	
 	public static void save(ContentResolver contentResolver, Item item) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(ItemContentHelper.NAME_COLUMN, item.getName());
+		contentValues.put(ItemContentProviderHelper.NAME_COLUMN, item.getName());
 		contentResolver.insert(ItemContentProvider.CONTENT_URI, contentValues);
 	}
 	
 	public static void update(ContentResolver contentResolver, Uri uri, Item item) {
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(ItemContentHelper.NAME_COLUMN, item.getName());
+		contentValues.put(ItemContentProviderHelper.NAME_COLUMN, item.getName());
 		contentResolver.update(uri, contentValues, null, null);
 	}
 	
 	public static Item getItemFromContentItemUri(ContentResolver contentResolver, Uri uri) {
-		Cursor cursor = contentResolver.query(uri, ItemContentHelper.allColumns, null, null, null);
+		Cursor cursor = contentResolver.query(uri, ItemContentProviderHelper.allColumns, null, null, null);
 		cursor.moveToFirst();
 		
 		Item item = new Item();
-		item.setId(cursor.getLong(cursor.getColumnIndex(ItemContentHelper.ID_COLUMN)));
-		item.setName(cursor.getString(cursor.getColumnIndex(ItemContentHelper.NAME_COLUMN)));
+		item.setId(cursor.getLong(cursor.getColumnIndex(ItemContentProviderHelper.ID_COLUMN)));
+		item.setName(cursor.getString(cursor.getColumnIndex(ItemContentProviderHelper.NAME_COLUMN)));
 		
 		cursor.close();
 		return item;

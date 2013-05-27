@@ -16,7 +16,7 @@ import android.text.TextUtils;
  *
  */
 public class ItemContentProvider extends ContentProvider {
-	private ItemContentHelper database;
+	private ItemContentProviderHelper database;
 
 	private static final int ITEMS = 10;
 	private static final int ITEM_ID = 20;
@@ -41,14 +41,14 @@ public class ItemContentProvider extends ContentProvider {
 		int rowsDeleted = 0;
 		switch (uriType) {
 		case ITEMS:
-			rowsDeleted = writeableDatabase.delete(ItemContentHelper.TABLE_NAME, selection, selectionArgs);
+			rowsDeleted = writeableDatabase.delete(ItemContentProviderHelper.TABLE_NAME, selection, selectionArgs);
 			break;
 		case ITEM_ID:
 			String id = uri.getLastPathSegment();
 			if (TextUtils.isEmpty(selection)) {
-				rowsDeleted = writeableDatabase.delete(ItemContentHelper.TABLE_NAME, ItemContentHelper.ID_COLUMN + "=" + id, null);
+				rowsDeleted = writeableDatabase.delete(ItemContentProviderHelper.TABLE_NAME, ItemContentProviderHelper.ID_COLUMN + "=" + id, null);
 			} else {
-				rowsDeleted = writeableDatabase.delete(ItemContentHelper.TABLE_NAME, ItemContentHelper.ID_COLUMN + "=" + id + " and " + selection, selectionArgs);
+				rowsDeleted = writeableDatabase.delete(ItemContentProviderHelper.TABLE_NAME, ItemContentProviderHelper.ID_COLUMN + "=" + id + " and " + selection, selectionArgs);
 			}
 			break;
 		default:
@@ -69,7 +69,7 @@ public class ItemContentProvider extends ContentProvider {
 		long id = 0;
 		switch (uriMatcher.match(uri)) {
 		case ITEMS:
-			id = sqlDB.insert(ItemContentHelper.TABLE_NAME, null, contentValues);
+			id = sqlDB.insert(ItemContentProviderHelper.TABLE_NAME, null, contentValues);
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -80,21 +80,21 @@ public class ItemContentProvider extends ContentProvider {
 
 	@Override
 	public boolean onCreate() {
-		database = new ItemContentHelper(getContext());
+		database = new ItemContentProviderHelper(getContext());
 		return false;
 	}
 
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-		queryBuilder.setTables(ItemContentHelper.TABLE_NAME);
+		queryBuilder.setTables(ItemContentProviderHelper.TABLE_NAME);
 
 		int uriType = uriMatcher.match(uri);
 		switch (uriType) {
 		case ITEMS:
 			break;
 		case ITEM_ID:
-			queryBuilder.appendWhere(ItemContentHelper.ID_COLUMN + "=" + uri.getLastPathSegment());
+			queryBuilder.appendWhere(ItemContentProviderHelper.ID_COLUMN + "=" + uri.getLastPathSegment());
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -113,14 +113,14 @@ public class ItemContentProvider extends ContentProvider {
 		int rowsUpdated = 0;
 		switch (uriMatcher.match(uri)) {
 		case ITEMS:
-			rowsUpdated = writeableDatabase.update(ItemContentHelper.TABLE_NAME, contentValues, selection, selectionArgs);
+			rowsUpdated = writeableDatabase.update(ItemContentProviderHelper.TABLE_NAME, contentValues, selection, selectionArgs);
 			break;
 		case ITEM_ID:
 			String id = uri.getLastPathSegment();
 			if (TextUtils.isEmpty(selection)) {
-				rowsUpdated = writeableDatabase.update(ItemContentHelper.TABLE_NAME, contentValues, ItemContentHelper.ID_COLUMN + "=" + id,  null);
+				rowsUpdated = writeableDatabase.update(ItemContentProviderHelper.TABLE_NAME, contentValues, ItemContentProviderHelper.ID_COLUMN + "=" + id,  null);
 			} else {
-				rowsUpdated = writeableDatabase.update(ItemContentHelper.TABLE_NAME, contentValues, ItemContentHelper.ID_COLUMN + "=" + id + " and " + selection, selectionArgs);
+				rowsUpdated = writeableDatabase.update(ItemContentProviderHelper.TABLE_NAME, contentValues, ItemContentProviderHelper.ID_COLUMN + "=" + id + " and " + selection, selectionArgs);
 			}
 			break;
 		default:
