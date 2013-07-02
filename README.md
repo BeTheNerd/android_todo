@@ -49,23 +49,24 @@ This is quickly becoming my preferred way of developing.  None of the heavy-weig
   *  Internal Storage: 200MiB
   *  Click OK
 4.  To run the emulator (note this isn't headless.  also note that this takes a while to boot.) 
+
     emulator -avd Galaxy_4
 
 #### Building
-1. To build and install the code (first make sure the emulator is running then)
+To build and install the code (first make sure the emulator is running then)
 
     gradle installDebug
 
-2.  To uninstall 
+To uninstall 
 
     gradle uninstallDebug
 
 #### Testing
-1.  To build, install, and run tests (first make sure the emulator is running then)
+To build, install, and run tests (first make sure the emulator is running then)
 
     gradle connectedInstrumentTest
 
-2.  To view the reports open ./build/reports/instrumentedTests/connected/index.html
+To view the reports open _./build/reports/instrumentedTests/connected/index.html_
 
 #### Notes
 To see the entire list of available tasks run
