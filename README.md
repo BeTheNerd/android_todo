@@ -53,17 +53,26 @@ This is quickly becoming my preferred way of developing.  None of the heavy-weig
 
 #### Building
 1. To build and install the code (first make sure the emulator is running then)
+
     gradle installDebug
+
 2.  To uninstall 
+
     gradle uninstallDebug
 
 #### Testing
 1.  To build, install, and run tests (first make sure the emulator is running then)
+
     gradle connectedInstrumentTest
-2.  Then to view the reports open ./build/reports/instrumentedTests/connected/index.html
+
+2.  To view the reports open ./build/reports/instrumentedTests/connected/index.html
 
 #### Notes
 To see the entire list of available tasks run
+
     gradle tasks 
+
 or
+
     gradle tasks --all
+
