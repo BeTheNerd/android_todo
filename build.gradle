@@ -14,6 +14,11 @@ android {
     buildToolsVersion '17.0'
     compileSdkVersion 17
 
+	defaultConfig {
+        testPackageName "com.manning.gia.todo.test"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+    }
+    
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -23,9 +28,18 @@ android {
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
         }
+
+        instrumentTest.setRoot('tests')
+        instrumentTest {
+          java.srcDirs = ['tests/src']
+          res.srcDirs = ['tests/res']
+          assets.srcDirs = ['tests/assets'] 
+          resources.srcDirs = ['tests/src']
+        }
     }
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.6'
 }
+

@@ -8,6 +8,7 @@
     <string name="new_item_text">New Item</string>
     <string name="input_item_text">Enter todo item</string>
     <string name="todo_edit_confirm">Confirm</string>
+    <string name="missing_text_message">Please enter text for the todo item</string>
     
 
 </resources>

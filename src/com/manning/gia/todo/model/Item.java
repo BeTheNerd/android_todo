@@ -3,7 +3,7 @@ package com.manning.gia.todo.model;
 import android.text.TextUtils;
 
 public class Item {
-	private static final String MISSING_TEXT_MESSAGE = "Please enter text for the todo item";
+	public static final String MISSING_TEXT_MESSAGE = "Please enter text for the todo item";
 	private long id;
 	private String name;
 	
