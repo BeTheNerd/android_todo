@@ -22,3 +22,6 @@ local.properties
 #gradle stuff
 .gradle
 build
+
+#mac stuff
+.DS_Store
