@@ -34,7 +34,12 @@ Do this if you want to use eclipse.
 This is quickly becoming my preferred way of developing.  None of the heavy-weight awfulness that is Eclipse.  Android-Studio is built on IntelliJ and looks promising but at this point it's Early Access Preview only.
 
 #### Install Emulator
-1.  Run 'android' in the terminal
+There is no need to do this if you already did it in the Eclipse instructions.  But if not, go ahead and do this.
+
+1.  Run the following command in the terminal
+
+    android
+
 2.  Go to Tools -> Manage AVDs... 
 3.  Click New... and fill out:
   *  AVD Name: Nexus_4
@@ -48,7 +53,8 @@ This is quickly becoming my preferred way of developing.  None of the heavy-weig
   *  VM Heap: 64
   *  Internal Storage: 200MiB
   *  Click OK
-4.  To run the emulator (note this isn't headless.  also note that this takes a while to boot.) 
+4.  Close the android tool down completely, you won't need it anymore (oh by the way, use this tool to update your android sdk if it goes out of date)
+5.  To run the emulator, just type the following in the terminal (note this isn't headless.  also note that this takes a while to boot.) 
 
     emulator -avd Galaxy_4
 
