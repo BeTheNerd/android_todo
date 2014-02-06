@@ -31,7 +31,7 @@ Do this if you want to use eclipse.
 6. See your app run
 
 ### Command Line
-This is quickly becoming my preferred way of developing.  None of the heavy-weight awfulness that is Eclipse.  Android-Studio is built on IntelliJ and looks promising but at this point it's Early Access Preview only.
+This is quickly becoming my preferred way of developing.  There is also Android-Studio is built on IntelliJ and looks promising but at this point it's Early Access Preview only.
 
 #### Install Emulator
 There is no need to do this if you already did it in the Eclipse instructions.  But if not, go ahead and do this.
@@ -56,7 +56,7 @@ There is no need to do this if you already did it in the Eclipse instructions.  
 4.  Close the android tool down completely, you won't need it anymore (oh by the way, use this tool to update your android sdk if it goes out of date)
 5.  To run the emulator, just type the following in the terminal (note this isn't headless.  also note that this takes a while to boot.) 
 
-    emulator -avd Galaxy_4
+    emulator -avd Nexus_4
 
 #### Building
 To build and install the code (first make sure the emulator is running then)
